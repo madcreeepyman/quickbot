@@ -13,7 +13,7 @@ data class UiMessage(val role: String, val text: String, val isError: Boolean = 
 
 class ChatViewModel(app: Application) : AndroidViewModel(app) {
 
-    private val TAG = "QuickbotDB"
+    private val tag = "QuickbotDB"
 
     private val db = AppDatabase.getDatabase(app)
     private val dao = db.chatDao()
@@ -30,7 +30,7 @@ class ChatViewModel(app: Application) : AndroidViewModel(app) {
     init {
         viewModelScope.launch {
             dao.getAllMessages().collect { entities ->
-                Log.d(TAG, "Loaded ${entities.size} messages from DB")
+                Log.d(tag, "Loaded ${entities.size} messages from DB")
                 _messages.value = entities.map { UiMessage(it.role, it.text, it.isError) }
             }
         }
@@ -79,13 +79,13 @@ class ChatViewModel(app: Application) : AndroidViewModel(app) {
                     )
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "Failed to send message", e)
+                Log.e(tag, "Failed to send message", e)
                 val partial = _streamingText.value.orEmpty()
                 if (partial.isNotBlank()) {
                     try {
                         dao.insertMessage(ChatMessageEntity(role = "assistant", text = partial))
                     } catch (dbError: Exception) {
-                        Log.e(TAG, "Failed to save partial response", dbError)
+                        Log.e(tag, "Failed to save partial response", dbError)
                     }
                 }
                 try {
@@ -97,7 +97,7 @@ class ChatViewModel(app: Application) : AndroidViewModel(app) {
                         )
                     )
                 } catch (dbError: Exception) {
-                    Log.e(TAG, "Failed to save error message", dbError)
+                    Log.e(tag, "Failed to save error message", dbError)
                 }
             } finally {
                 _streamingText.value = null
@@ -110,9 +110,9 @@ class ChatViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch {
             try {
                 dao.clearAll()
-                Log.d(TAG, "Cleared all messages")
+                Log.d(tag, "Cleared all messages")
             } catch (e: Exception) {
-                Log.e(TAG, "Failed to clear messages", e)
+                Log.e(tag, "Failed to clear messages", e)
             }
         }
     }

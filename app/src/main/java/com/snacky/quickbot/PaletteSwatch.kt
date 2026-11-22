@@ -4,7 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Icon
@@ -57,13 +57,13 @@ fun PaletteSwatch(
         Box(
             modifier = Modifier
                 .size(64.dp)
-                .clip(RoundedCornerShape(16.dp))
+                .clip(CircleShape)
                 .background(brush)
                 .then(
                     if (selected) Modifier.border(
                         width = 3.dp,
                         color = MaterialTheme.colorScheme.primary,
-                        shape = RoundedCornerShape(16.dp)
+                        shape = CircleShape
                     ) else Modifier
                 ),
             contentAlignment = Alignment.Center

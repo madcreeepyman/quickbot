@@ -1,6 +1,7 @@
 package com.snacky.quickbot
 
 import android.content.Context
+import androidx.core.content.edit
 
 object ThemePrefs {
     private const val FILE = "theme_settings"
@@ -17,6 +18,6 @@ object ThemePrefs {
         prefs(context).getInt(KEY_MODE, MODE_SYSTEM)
 
     fun setMode(context: Context, mode: Int) {
-        prefs(context).edit().putInt(KEY_MODE, mode).apply()
+        prefs(context).edit { putInt(KEY_MODE, mode) }
     }
 }

@@ -84,15 +84,15 @@ object OpenRouterClient {
         history: List<ChatMessage>,
         onDelta: (String) -> Unit
     ): Result<String> = withContext(Dispatchers.IO) {
-        var call: okhttp3.Call? = null
+        var call: Any?
         var cancellationHandle: kotlinx.coroutines.DisposableHandle? = null
         try {
             call = client.newCall(buildRequest(apiKey, model, history, stream = true))
             cancellationHandle = currentCoroutineContext()[Job]?.invokeOnCompletion { cause ->
-                if (cause != null) call?.cancel()
+                if (cause != null) call.cancel()
             }
 
-            call!!.execute().use { response ->
+            call.execute().use { response ->
                 if (!response.isSuccessful) {
                     val errorBody = response.body?.string().orEmpty()
                     return@withContext Result.failure(

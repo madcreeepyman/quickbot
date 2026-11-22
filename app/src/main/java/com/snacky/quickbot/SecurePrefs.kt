@@ -3,6 +3,7 @@ package com.snacky.quickbot
 import android.content.Context
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import androidx.core.content.edit
 
 object SecurePrefs {
     private const val FILE_NAME = "secure_settings"
@@ -21,27 +22,27 @@ object SecurePrefs {
     )
 
     fun saveKey(context: Context, key: String) {
-        prefs(context).edit().putString(KEY_API, key).apply()
+        prefs(context).edit { putString(KEY_API, key) }
     }
 
     fun getKey(context: Context): String? =
         prefs(context).getString(KEY_API, null)
 
     fun clearKey(context: Context) {
-        prefs(context).edit().remove(KEY_API).apply()
+        prefs(context).edit {remove(KEY_API)}
     }
 
     fun getModel(context: Context): String =
         prefs(context).getString(KEY_MODEL, null) ?: "openai/gpt-4o-mini"
 
     fun saveModel(context: Context, model: String) {
-        prefs(context).edit().putString(KEY_MODEL, model).apply()
+        prefs(context).edit { putString(KEY_MODEL, model)}
     }
 
     fun isStreamingEnabled(context: Context): Boolean =
         prefs(context).getBoolean(KEY_STREAMING, false)
 
     fun setStreamingEnabled(context: Context, enabled: Boolean) {
-        prefs(context).edit().putBoolean(KEY_STREAMING, enabled).apply()
+        prefs(context).edit { putBoolean(KEY_STREAMING, enabled)}
     }
 }

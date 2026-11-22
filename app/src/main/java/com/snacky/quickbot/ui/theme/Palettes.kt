@@ -318,9 +318,9 @@ val RosePalette = Palette(
 )
 
 // =========================================================================
-// 7. ОКЕАН — бирюзово-синий
+// 7. АКВА — бирюзово-синий
 // =========================================================================
-val OceanLight = lightColorScheme(
+val AquaLight = lightColorScheme(
     primary = Color(0xFF006874),
     onPrimary = Color(0xFFFFFFFF),
     primaryContainer = Color(0xFF97F0FF),
@@ -343,7 +343,7 @@ val OceanLight = lightColorScheme(
     onErrorContainer = Color(0xFF410002)
 )
 
-val OceanDark = darkColorScheme(
+val AquaDark = darkColorScheme(
     primary = Color(0xFF4FD8EB),
     onPrimary = Color(0xFF00363D),
     primaryContainer = Color(0xFF004F58),
@@ -366,18 +366,76 @@ val OceanDark = darkColorScheme(
     onErrorContainer = Color(0xFFFFDAD6)
 )
 
-val OceanPalette = Palette(
-    id = "ocean",
-    label = "Океан",
-    light = OceanLight,
-    dark = OceanDark
+val AquaPalette = Palette(
+    id = "aqua",
+    label = "Аква",
+    light = AquaLight,
+    dark = AquaDark
 )
 
 // =========================================================================
-// СПИСОК ВСЕХ ПАЛИТР
+// 4. БАНАН — жёлтый, банановый
 // =========================================================================
-// Чтобы добавить новую палитру — просто добавь её сюда. Больше ничего
-// менять не нужно.
+val BananaLight = lightColorScheme(
+    primary = Color(0xFF745B00),
+    onPrimary = Color(0xFFFFFFFF),
+    primaryContainer = Color(0xFFFFE086),
+    onPrimaryContainer = Color(0xFF231A00),
+    secondary = Color(0xFF6D5E31),
+    onSecondary = Color(0xFFFFFFFF),
+    secondaryContainer = Color(0xFFF2E1B3),
+    onSecondaryContainer = Color(0xFF241A04),
+    tertiary = Color(0xFF4B6478),
+    onTertiary = Color(0xFFFFFFFF),
+    tertiaryContainer = Color(0xFFD3E4F1),
+    onTertiaryContainer = Color(0xFF061E2A),
+    background = Color(0xFFFFFBF3),
+    onBackground = Color(0xFF1D1B12),
+    surface = Color(0xFFFFFBF3),
+    onSurface = Color(0xFF1D1B12),
+    surfaceVariant = Color(0xFFECE2C8),
+    onSurfaceVariant = Color(0xFF4C4630),
+    error = Color(0xFFBA1A1A),
+    onError = Color(0xFFFFFFFF),
+    errorContainer = Color(0xFFFFDAD6),
+    onErrorContainer = Color(0xFF410002)
+)
+
+val BananaDark = darkColorScheme(
+    primary = Color(0xFFEFC235),
+    onPrimary = Color(0xFF3B2F00),
+    primaryContainer = Color(0xFF564500),
+    onPrimaryContainer = Color(0xFFFFE086),
+    secondary = Color(0xFFD6C5A0),
+    onSecondary = Color(0xFF382E0F),
+    secondaryContainer = Color(0xFF504723),
+    onSecondaryContainer = Color(0xFFF2E1B3),
+    tertiary = Color(0xFFB0CAE2),
+    onTertiary = Color(0xFF153340),
+    tertiaryContainer = Color(0xFF334A59),
+    onTertiaryContainer = Color(0xFFD3E4F1),
+    background = Color(0xFF1A1409),
+    onBackground = Color(0xFFE9E1D0),
+    surface = Color(0xFF1A1409),
+    onSurface = Color(0xFFE9E1D0),
+    surfaceVariant = Color(0xFF4C4630),
+    onSurfaceVariant = Color(0xFFCCC4AE),
+    error = Color(0xFFFFB4AB),
+    onError = Color(0xFF690005),
+    errorContainer = Color(0xFF93000A),
+    onErrorContainer = Color(0xFFFFDAD6)
+)
+
+val BananaPalette = Palette(
+    id = "banana",
+    label = "Банан",
+    light = BananaLight,
+    dark = BananaDark
+)
+
+
+//
+// СПИСОК ВСЕХ ПАЛИТ: чтобы добавить новую палитру просто добавь её сюда. Больше ничего менять не нужно.
 val allPalettes: List<Palette> = listOf(
     SystemPalette,
     MonochromePalette,
@@ -385,7 +443,8 @@ val allPalettes: List<Palette> = listOf(
     IndigoPalette,
     TerracottaPalette,
     RosePalette,
-    OceanPalette
+    AquaPalette,
+    BananaPalette
 )
 
 // Быстрый поиск по ID (для Theme.kt)

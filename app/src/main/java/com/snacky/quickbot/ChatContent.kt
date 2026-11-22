@@ -5,7 +5,6 @@ import android.content.ClipboardManager
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.ui.graphics.SolidColor
 import android.content.Context
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -174,7 +173,7 @@ fun ChatContent(
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
+
 @Composable
 private fun MessageBubble(
     msg: UiMessage,

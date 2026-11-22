@@ -43,10 +43,11 @@ import androidx.savedstate.SavedStateRegistryOwner
 import androidx.savedstate.setViewTreeSavedStateRegistryOwner
 import com.snacky.quickbot.ui.theme.QuickbotTheme
 
+@Suppress("DEPRECATION")
 class OverlayService : Service(),
     LifecycleOwner, ViewModelStoreOwner, SavedStateRegistryOwner {
 
-    private val TAG = "QuickbotOverlay"
+    private val tag = "QuickbotOverlay"
 
     private lateinit var windowManager: WindowManager
     private var overlayView: ComposeView? = null
@@ -63,7 +64,7 @@ class OverlayService : Service(),
     private val screenOffReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent?.action == Intent.ACTION_SCREEN_OFF) {
-                Log.d(TAG, "SCREEN_OFF → stopSelf")
+                Log.d(tag, "SCREEN_OFF → stopSelf")
                 stopSelf()
             }
         }
@@ -74,9 +75,9 @@ class OverlayService : Service(),
     override fun onCreate() {
         try {
             startForegroundNotification()
-            Log.d(TAG, "onCreate: startForeground OK")
+            Log.d(tag, "onCreate: startForeground OK")
         } catch (t: Throwable) {
-            Log.e(TAG, "onCreate: startForeground FAILED", t)
+            Log.e(tag, "onCreate: startForeground FAILED", t)
             stopSelf()
             return
         }
@@ -86,29 +87,29 @@ class OverlayService : Service(),
         try {
             savedStateRegistryController.performRestore(null)
             lifecycleRegistry.currentState = Lifecycle.State.CREATED
-            windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            this.windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
 
             // Регистрируем ресивер для SCREEN_OFF
             registerReceiver(
                 screenOffReceiver,
                 IntentFilter(Intent.ACTION_SCREEN_OFF)
             )
-            Log.d(TAG, "onCreate: registries + receiver OK")
+            Log.d(tag, "onCreate: registries + receiver OK")
         } catch (t: Throwable) {
-            Log.e(TAG, "onCreate: registry init FAILED", t)
+            Log.e(tag, "onCreate: registry init FAILED", t)
             stopSelf()
         }
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.d(TAG, "onStartCommand: overlayView=${overlayView != null}")
+        Log.d(tag, "onStartCommand: overlayView=${overlayView != null}")
 
         if (overlayView == null) {
             Handler(Looper.getMainLooper()).post {
                 try {
                     showOverlay()
                 } catch (t: Throwable) {
-                    Log.e(TAG, "showOverlay FAILED", t)
+                    Log.e(tag, "showOverlay FAILED", t)
                     stopSelf()
                 }
             }
@@ -116,13 +117,13 @@ class OverlayService : Service(),
         try {
             lifecycleRegistry.currentState = Lifecycle.State.RESUMED
         } catch (t: Throwable) {
-            Log.e(TAG, "lifecycle RESUMED FAILED", t)
+            Log.e(tag, "lifecycle RESUMED FAILED", t)
         }
         return START_NOT_STICKY
     }
 
     private fun showOverlay() {
-        Log.d(TAG, "showOverlay: begin")
+        Log.d(tag, "showOverlay: begin")
 
         val view = ComposeView(this).apply {
             setViewTreeLifecycleOwner(this@OverlayService)
@@ -157,7 +158,7 @@ class OverlayService : Service(),
                 }
             }
         }
-        Log.d(TAG, "showOverlay: ComposeView created")
+        Log.d(tag, "showOverlay: ComposeView created")
 
         val type = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
@@ -189,15 +190,15 @@ class OverlayService : Service(),
 
         windowManager.addView(view, params)
         overlayView = view
-        Log.d(TAG, "showOverlay: addView OK")
+        Log.d(tag, "showOverlay: addView OK")
     }
 
     override fun onDestroy() {
-        Log.d(TAG, "onDestroy")
+        Log.d(tag, "onDestroy")
         runCatching { unregisterReceiver(screenOffReceiver) }
         overlayView?.let {
             runCatching { windowManager.removeView(it) }
-                .onFailure { t -> Log.e(TAG, "removeView FAILED", t) }
+                .onFailure { t -> Log.e(tag, "removeView FAILED", t) }
         }
         overlayView = null
         runCatching { lifecycleRegistry.currentState = Lifecycle.State.DESTROYED }

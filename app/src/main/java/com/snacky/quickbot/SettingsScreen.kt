@@ -12,15 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.snacky.quickbot.ui.theme.allPalettes
-import androidx.compose.foundation.background
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Circle
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Alignment
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.TextButton
-import androidx.compose.ui.graphics.Color
+import androidx.compose.material3.FilledTonalButton
+import androidx.core.net.toUri
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -61,7 +57,7 @@ fun SettingsScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // ---------- ТЕМА ----------
+            // ТЕМА
             Text("Тема", style = MaterialTheme.typography.titleMedium)
 
             val themeOptions = listOf(
@@ -83,11 +79,11 @@ fun SettingsScreen(
                     val isFirst = index == 0
                     val isLast = index == themeOptions.size - 1
 
-                    // Форма: внешние углы 24dp, внутренние 8dp
+                    // Форма: внешние углы 24dp, внутренние 4dp
                     val shape = when {
-                        isFirst -> RoundedCornerShape(topStart = 24.dp, bottomStart = 24.dp, topEnd = 8.dp, bottomEnd = 8.dp)
-                        isLast -> RoundedCornerShape(topStart = 8.dp, bottomStart = 8.dp, topEnd = 24.dp, bottomEnd = 24.dp)
-                        else -> RoundedCornerShape(8.dp)
+                        isFirst -> RoundedCornerShape(topStart = 24.dp, bottomStart = 24.dp, topEnd = 4.dp, bottomEnd = 4.dp)
+                        isLast -> RoundedCornerShape(topStart = 4.dp, bottomStart = 4.dp, topEnd = 24.dp, bottomEnd = 24.dp)
+                        else -> RoundedCornerShape(4.dp)
                     }
 
                     Surface(
@@ -109,22 +105,6 @@ fun SettingsScreen(
                             horizontalArrangement = Arrangement.Center,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            if (isSelected) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(16.dp)
-                                        .background(Color.White, shape = CircleShape),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.Check,
-                                        contentDescription = null,
-                                        modifier = Modifier.size(10.dp),
-                                        tint = MaterialTheme.colorScheme.primary
-                                    )
-                                }
-                                Spacer(Modifier.width(6.dp))
-                            }
                             Text(
                                 text = label,
                                 style = MaterialTheme.typography.labelMedium,
@@ -138,14 +118,14 @@ fun SettingsScreen(
 
             HorizontalDivider()
 
-            // ---------- ПАЛИТРА ----------
+            // ПАЛИТРА
             Text("Цвет оформления", style = MaterialTheme.typography.titleMedium)
 
             Row(
                 Modifier
                     .fillMaxWidth()
                     .horizontalScroll(rememberScrollState()),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 allPalettes.forEach { palette ->
                     PaletteSwatch(
@@ -161,15 +141,15 @@ fun SettingsScreen(
             }
 
             Text(
-                "Системная палитра работает только на Android 12+. " +
-                        "На более старых версиях используется Монохром.",
+                "Системная палитра работает только на Android 12 и выше " +
+                        "На более старых версиях используется Монохром",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
             HorizontalDivider()
 
-            // ---------- МОДЕЛЬ ----------
+            // МОДЕЛЬ
             Text("Модель OpenRouter", style = MaterialTheme.typography.titleMedium)
             OutlinedTextField(
                 value = model,
@@ -182,29 +162,29 @@ fun SettingsScreen(
                 onClick = { SecurePrefs.saveModel(context, model.trim()) },
                 enabled = model.isNotBlank()
             ) {
-                Text("Сохранить модель")
+                Text("Сохранить")
             }
             Text(
                 "Например: openai/gpt-oss-120b:free, anthropic/claude-3.5-sonnet",
                 style = MaterialTheme.typography.bodySmall
             )
 
-// ─── НОВОЕ: ссылка на OpenRouter ───
-            TextButton(
+// Ссылка на OpenRouter
+            FilledTonalButton (
                 onClick = {
                     val intent = android.content.Intent(
                         android.content.Intent.ACTION_VIEW,
-                        android.net.Uri.parse("https://openrouter.ai/models")
+                        "https://openrouter.ai/models".toUri()
                     )
                     context.startActivity(intent)
                 }
             ) {
-                Text("Открыть список моделей на openrouter.ai")
+                Text("Список моделей на сайте OpenRouter")
             }
 
             HorizontalDivider()
 
-            // ---------- ПОТОКОВЫЕ ОТВЕТЫ ----------
+            // ПОТОКОВЫЕ ОТВЕТЫ
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
@@ -228,8 +208,8 @@ fun SettingsScreen(
 
             HorizontalDivider()
 
-            // ---------- ОВЕРЛЕЙ ----------
-            Text("Разрешение оверлея", style = MaterialTheme.typography.titleMedium)
+            // ОВЕРЛЕЙ
+            Text("Оверлей ассистента", style = MaterialTheme.typography.titleMedium)
             Text(
                 if (overlayGranted) "Разрешение предоставлено"
                 else "Разрешение не предоставлено — оверлей работать не будет",
@@ -239,12 +219,12 @@ fun SettingsScreen(
                 OverlayPermission.request(context)
                 overlayGranted = OverlayPermission.has(context)
             }) {
-                Text("Открыть настройки разрешения")
+                Text("Выдать или отозвать разрешение")
             }
 
             HorizontalDivider()
 
-            // ---------- API-КЛЮЧ ----------
+            // API-КЛЮЧ
             Text("API-ключ", style = MaterialTheme.typography.titleMedium)
             Button(
                 onClick = onClearKey,
