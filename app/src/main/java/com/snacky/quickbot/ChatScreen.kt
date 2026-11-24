@@ -8,6 +8,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
@@ -21,16 +22,19 @@ fun ChatScreen(
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
 
+    // Получаем строку заранее, чтобы использовать в корутине
+    val copiedText = stringResource(R.string.chat_copied)
+
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Quickbot") },
+                title = { Text(stringResource(R.string.app_name)) },
                 actions = {
                     IconButton(onClick = { vm.clear() }) {
-                        Icon(Icons.Default.Delete, "Очистить")
+                        Icon(Icons.Default.Delete, stringResource(R.string.chat_clear))
                     }
                     IconButton(onClick = onOpenSettings) {
-                        Icon(Icons.Default.Settings, "Настройки")
+                        Icon(Icons.Default.Settings, stringResource(R.string.chat_settings))
                     }
                 }
             )
@@ -38,7 +42,7 @@ fun ChatScreen(
         snackbarHost = {
             SnackbarHost(
                 hostState = snackbarHostState,
-                modifier = Modifier.padding(bottom = 72.dp)  // над полем ввода
+                modifier = Modifier.padding(bottom = 72.dp)
             )
         }
     ) { padding ->
@@ -54,7 +58,7 @@ fun ChatScreen(
                 onCopy = {
                     scope.launch {
                         snackbarHostState.showSnackbar(
-                            message = "Скопировано",
+                            message = copiedText,
                             duration = SnackbarDuration.Short
                         )
                     }

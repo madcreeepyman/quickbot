@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- General -->
+    <string name="app_name">Quickbot</string>
+    <string name="back">Back</string>
+
+    <!-- Setup Screen -->
+    <string name="setup_description">Paste your OpenRouter API key. It will be stored only on your device, encrypted.</string>
+    <string name="setup_api_key_label">OpenRouter API Key</string>
+    <string name="setup_model_label">Model ID (optional)</string>
+    <string name="setup_model_placeholder">openai/gpt-4o-mini</string>
+    <string name="setup_model_hint">Leave blank to use openai/gpt-4o-mini. Model list: openrouter.ai/models</string>
+    <string name="setup_save">Save</string>
+    <string name="setup_key_hint">OpenRouter keys start with sk-or-</string>
+
+    <!-- Chat -->
+    <string name="chat_clear">Clear</string>
+    <string name="chat_settings">Settings</string>
+    <string name="chat_copied">Copied</string>
+    <string name="chat_thinking">Thinking…</string>
+    <string name="chat_input_hint">Message…</string>
+    <string name="chat_send">Send</string>
+    <string name="chat_copy">Copy</string>
+
+    <!-- Overlay -->
+    <string name="overlay_close">Close</string>
+
+    <!-- Overlay notification -->
+    <string name="overlay_notification_channel_name">Quickbot overlay</string>
+    <string name="overlay_notification_text">Assistant is active</string>
+
+    <!-- Errors -->
+    <string name="error_prefix">Error: %1$s</string>
+    <string name="error_unknown">Unknown error</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Settings</string>
+    <string name="theme_title">Theme</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Light</string>
+    <string name="palette_title">Color palette</string>
+    <string name="palette_hint">System palette works only on Android 12+. Monochrome is used on older versions.</string>
+    <string name="model_title">OpenRouter Model</string>
+    <string name="model_label">Model ID</string>
+    <string name="save">Save</string>
+    <string name="visit_openrouter">Visit OpenRouter</string>
+    <string name="model_hint">Example: openai/gpt-oss-120b:free, anthropic/claude-3.5-sonnet</string>
+    <string name="streaming_title">Streaming</string>
+    <string name="streaming_desc">Show response as it is generated</string>
+    <string name="overlay_title">Assistant overlay</string>
+    <string name="overlay_granted">Permission granted</string>
+    <string name="overlay_denied">Permission denied — overlay won\'t work</string>
+    <string name="overlay_button">Grant or revoke permission</string>
+    <string name="api_key_title">API key</string>
+    <string name="delete_key">Delete key</string>
+
+    <!-- Palettes -->
+    <string name="palette_system">System</string>
+    <string name="palette_mono">Monochrome</string>
+    <string name="palette_mint">Mint</string>
+    <string name="palette_indigo">Indigo</string>
+    <string name="palette_terracotta">Terracotta</string>
+    <string name="palette_rose">Rose</string>
+    <string name="palette_aqua">Aqua</string>
+    <string name="palette_banana">Banana</string>
+</resources>

@@ -8,6 +8,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource               // ← ДОБАВИТЬ
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 
@@ -16,6 +17,9 @@ fun OverlayContent(vm: ChatViewModel) {
     val context = LocalContext.current
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
+
+    // Получаем строку заранее для использования в корутине
+    val copiedText = stringResource(R.string.chat_copied)
 
     Box(Modifier.fillMaxSize()) {
         Column(Modifier.fillMaxSize()) {
@@ -26,14 +30,17 @@ fun OverlayContent(vm: ChatViewModel) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    "Quickbot",
+                    stringResource(R.string.app_name), // ← ИЗМЕНЕНО
                     style = MaterialTheme.typography.titleSmall,
                     modifier = Modifier.weight(1f)
                 )
                 IconButton(
                     onClick = { (context as? OverlayService)?.stopSelf() }
                 ) {
-                    Icon(Icons.Default.Close, "Закрыть")
+                    Icon(
+                        Icons.Default.Close,
+                        contentDescription = stringResource(R.string.overlay_close) // ← ИЗМЕНЕНО
+                    )
                 }
             }
             ChatContent(
@@ -42,7 +49,7 @@ fun OverlayContent(vm: ChatViewModel) {
                 onCopy = {
                     scope.launch {
                         snackbarHostState.showSnackbar(
-                            message = "Скопировано",
+                            message = copiedText, // ← ИЗМЕНЕНО
                             duration = SnackbarDuration.Short
                         )
                     }

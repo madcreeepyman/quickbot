@@ -208,13 +208,18 @@ class OverlayService : Service(),
 
     private fun startForegroundNotification() {
         val channelId = "quickbot_overlay"
+
+        // Получаем строки из ресурсов
+        val channelName = getString(R.string.overlay_notification_channel_name)
+        val notificationText = getString(R.string.overlay_notification_text)
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val nm = getSystemService(NotificationManager::class.java)
             if (nm != null && nm.getNotificationChannel(channelId) == null) {
                 nm.createNotificationChannel(
                     NotificationChannel(
                         channelId,
-                        "Quickbot overlay",
+                        channelName, // ← ИЗМЕНЕНО
                         NotificationManager.IMPORTANCE_MIN
                     )
                 )
@@ -227,8 +232,8 @@ class OverlayService : Service(),
         )
         val notif: Notification = NotificationCompat.Builder(this, channelId)
             .setSmallIcon(android.R.drawable.ic_dialog_info)
-            .setContentTitle("Quickbot")
-            .setContentText("Ассистент активен")
+            .setContentTitle("Quickbot") // Название приложения не переводим (или можно использовать getString(R.string.app_name))
+            .setContentText(notificationText) // ← ИЗМЕНЕНО
             .setContentIntent(openApp)
             .setOngoing(true)
             .build()

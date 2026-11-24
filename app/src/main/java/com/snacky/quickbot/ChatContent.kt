@@ -20,6 +20,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import dev.jeziellago.compose.markdowntext.MarkdownText
 
@@ -78,7 +79,7 @@ fun ChatContent(
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         CircularProgressIndicator(Modifier.size(18.dp), strokeWidth = 2.dp)
                         Spacer(Modifier.width(8.dp))
-                        Text("Думаю...", style = MaterialTheme.typography.bodySmall)
+                        Text(stringResource(R.string.chat_thinking), style = MaterialTheme.typography.bodySmall)
                     }
                 }
             }
@@ -124,7 +125,7 @@ fun ChatContent(
                             ) {
                                 if (input.isEmpty()) {
                                     Text(
-                                        "Сообщение...",
+                                        stringResource(R.string.chat_input_hint),
                                         style = MaterialTheme.typography.bodyLarge,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
@@ -159,7 +160,7 @@ fun ChatContent(
                     Box(contentAlignment = Alignment.Center) {
                         Icon(
                             Icons.AutoMirrored.Filled.Send,
-                            contentDescription = "Отправить",
+                            contentDescription = stringResource(R.string.chat_send),
                             tint = if (hasText)
                                 MaterialTheme.colorScheme.onPrimary
                             else
@@ -172,7 +173,6 @@ fun ChatContent(
         }
     }
 }
-
 
 @Composable
 private fun MessageBubble(
@@ -188,7 +188,6 @@ private fun MessageBubble(
 
     var showMenu by remember { mutableStateOf(false) }
 
-    // Определяем форму: капсула для коротких, скругление для длинных
     val isShort = msg.text.length <= 40 && !msg.text.contains('\n')
     val shape = if (isShort) RoundedCornerShape(percent = 50) else RoundedCornerShape(16.dp)
 
@@ -222,7 +221,7 @@ private fun MessageBubble(
                 onDismissRequest = { showMenu = false }
             ) {
                 DropdownMenuItem(
-                    text = { Text("Копировать") },
+                    text = { Text(stringResource(R.string.chat_copy)) },
                     leadingIcon = {
                         Icon(Icons.Default.ContentCopy, contentDescription = null)
                     },

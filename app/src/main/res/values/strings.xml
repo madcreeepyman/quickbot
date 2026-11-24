@@ -1,3 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Общее -->
     <string name="app_name">Quickbot</string>
+    <string name="back">Назад</string>
+
+    <!-- Экран настройки (Setup) -->
+    <string name="setup_description">Вставьте свой API-ключ OpenRouter. Он будет храниться только на устройстве в зашифрованном виде.</string>
+    <string name="setup_api_key_label">OpenRouter API Key</string>
+    <string name="setup_model_label">Model ID (опционально)</string>
+    <string name="setup_model_placeholder">openai/gpt-4o-mini</string>
+    <string name="setup_model_hint">Оставьте пустым для использования openai/gpt-4o-mini. Список моделей: openrouter.ai/models</string>
+    <string name="setup_save">Сохранить</string>
+    <string name="setup_key_hint">Ключи OpenRouter начинаются с sk-or-</string>
+
+    <!-- Чат (экран и контент) -->
+    <string name="chat_clear">Очистить</string>
+    <string name="chat_settings">Настройки</string>
+    <string name="chat_copied">Скопировано</string>
+    <string name="chat_thinking">Думаю…</string>
+    <string name="chat_input_hint">Сообщение…</string>
+    <string name="chat_send">Отправить</string>
+    <string name="chat_copy">Копировать</string>
+
+    <!-- Оверлей -->
+    <string name="overlay_close">Закрыть</string>
+
+    <!-- Уведомление оверлея -->
+    <string name="overlay_notification_channel_name">Оверлей Quickbot</string>
+    <string name="overlay_notification_text">Ассистент активен</string>
+
+    <!-- Ошибки (ViewModel) -->
+    <string name="error_prefix">Ошибка: %1$s</string>
+    <string name="error_unknown">Неизвестная ошибка</string>
+
+    <!-- Настройки (Settings) -->
+    <string name="settings_title">Настройки</string>
+    <string name="theme_title">Тема</string>
+    <string name="theme_dark">Тёмная</string>
+    <string name="theme_system">Системная</string>
+    <string name="theme_light">Светлая</string>
+    <string name="palette_title">Цвет оформления</string>
+    <string name="palette_hint">Системная палитра работает только на Android 12 и выше. На более старых версиях используется Монохром</string>
+    <string name="model_title">Модель OpenRouter</string>
+    <string name="model_label">Model ID</string>
+    <string name="save">Сохранить</string>
+    <string name="visit_openrouter">Посетить OpenRouter</string>
+    <string name="model_hint">Например: openai/gpt-oss-120b:free, anthropic/claude-3.5-sonnet</string>
+    <string name="streaming_title">Потоковая выдача</string>
+    <string name="streaming_desc">Показывать ответ по мере генерации</string>
+    <string name="overlay_title">Оверлей ассистента</string>
+    <string name="overlay_granted">Разрешение предоставлено</string>
+    <string name="overlay_denied">Разрешение не предоставлено — оверлей работать не будет</string>
+    <string name="overlay_button">Выдать или отозвать разрешение</string>
+    <string name="api_key_title">API-ключ</string>
+    <string name="delete_key">Удалить ключ</string>
+
+    <!-- Палитры -->
+    <string name="palette_system">Системная</string>
+    <string name="palette_mono">Монохром</string>
+    <string name="palette_mint">Мята</string>
+    <string name="palette_indigo">Индиго</string>
+    <string name="palette_terracotta">Терракота</string>
+    <string name="palette_rose">Роза</string>
+    <string name="palette_aqua">Аква</string>
+    <string name="palette_banana">Банан</string>
 </resources>

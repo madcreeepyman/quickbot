@@ -5,6 +5,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 
@@ -21,10 +22,10 @@ fun SetupScreen(onSave: (apiKey: String, model: String) -> Unit) {
             Modifier.widthIn(max = 480.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Quickbot", style = MaterialTheme.typography.headlineMedium)
+            Text(stringResource(R.string.app_name), style = MaterialTheme.typography.headlineMedium)
             Spacer(Modifier.height(8.dp))
             Text(
-                "Вставь свой API-ключ OpenRouter. Он будет храниться только на устройстве в зашифрованном виде.",
+                stringResource(R.string.setup_description),
                 style = MaterialTheme.typography.bodyMedium
             )
             Spacer(Modifier.height(24.dp))
@@ -32,7 +33,7 @@ fun SetupScreen(onSave: (apiKey: String, model: String) -> Unit) {
             OutlinedTextField(
                 value = key,
                 onValueChange = { key = it.trim() },
-                label = { Text("OpenRouter API Key") },
+                label = { Text(stringResource(R.string.setup_api_key_label)) },
                 singleLine = true,
                 visualTransformation = PasswordVisualTransformation(),
                 modifier = Modifier.fillMaxWidth()
@@ -43,15 +44,14 @@ fun SetupScreen(onSave: (apiKey: String, model: String) -> Unit) {
             OutlinedTextField(
                 value = model,
                 onValueChange = { model = it.trim() },
-                label = { Text("Model ID (опционально)") },
-                placeholder = { Text("openai/gpt-4o-mini") },
+                label = { Text(stringResource(R.string.setup_model_label)) },
+                placeholder = { Text(stringResource(R.string.setup_model_placeholder)) },
                 singleLine = true,
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                "Оставь пустым для использования openai/gpt-4o-mini. " +
-                        "Список моделей: openrouter.ai/models",
+                stringResource(R.string.setup_model_hint),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -66,11 +66,11 @@ fun SetupScreen(onSave: (apiKey: String, model: String) -> Unit) {
                 enabled = key.startsWith("sk-or-"),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Сохранить")
+                Text(stringResource(R.string.setup_save))
             }
             Spacer(Modifier.height(8.dp))
             Text(
-                "Ключи OpenRouter начинаются с sk-or-",
+                stringResource(R.string.setup_key_hint),
                 style = MaterialTheme.typography.bodySmall
             )
         }

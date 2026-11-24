@@ -42,6 +42,10 @@ class ChatViewModel(app: Application) : AndroidViewModel(app) {
         val model = SecurePrefs.getModel(ctx)
         val streamingEnabled = SecurePrefs.isStreamingEnabled(ctx)
 
+        // Получаем строки заранее
+        val errorPrefix = ctx.getString(R.string.error_prefix)
+        val unknownError = ctx.getString(R.string.error_unknown)
+
         _isLoading.value = true
         _streamingText.value = if (streamingEnabled) "" else null
 
@@ -70,10 +74,12 @@ class ChatViewModel(app: Application) : AndroidViewModel(app) {
                         dao.insertMessage(ChatMessageEntity(role = "assistant", text = partial))
                     }
                     val error = result.exceptionOrNull()
+                    // ИЗМЕНЕНО:
+                    val errorMessage = error?.message ?: unknownError
                     dao.insertMessage(
                         ChatMessageEntity(
                             role = "assistant",
-                            text = "Ошибка: ${error?.message ?: "Неизвестная ошибка"}",
+                            text = String.format(errorPrefix, errorMessage),
                             isError = true
                         )
                     )
@@ -89,10 +95,12 @@ class ChatViewModel(app: Application) : AndroidViewModel(app) {
                     }
                 }
                 try {
+                    // ИЗМЕНЕНО:
+                    val errorMessage = e.message ?: unknownError
                     dao.insertMessage(
                         ChatMessageEntity(
                             role = "assistant",
-                            text = "Ошибка: ${e.message ?: "Неизвестная ошибка"}",
+                            text = String.format(errorPrefix, errorMessage),
                             isError = true
                         )
                     )

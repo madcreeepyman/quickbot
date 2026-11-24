@@ -26,7 +26,8 @@ fun PaletteSwatch(
     palette: Palette,
     selected: Boolean,
     currentDarkTheme: Boolean,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    labelText: String
 ) {
     // Определяем цвет кружка
     val swatchScheme = when {
@@ -81,7 +82,7 @@ fun PaletteSwatch(
         Spacer(Modifier.height(6.dp))
 
         Text(
-            text = palette.label,
+            text = labelText, // <-- ИЗМЕНЕНО: используем переданный переведенный текст
             style = MaterialTheme.typography.labelSmall.copy(fontSize = 11.sp),
             textAlign = TextAlign.Center,
             maxLines = 2,

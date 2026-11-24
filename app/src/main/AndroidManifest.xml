@@ -13,7 +13,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Quickbot">
+        android:theme="@style/Theme.Quickbot"
+        android:localeConfig="@xml/locales_config">
 
         <activity
             android:name=".MainActivity"
